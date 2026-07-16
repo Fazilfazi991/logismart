@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Mail, MapPin, Phone, Send } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { FormEvent, useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll } from "framer-motion";
+import { FormEvent, useState } from "react";
 import { advantageCards, contactDetails, insights, services } from "@/data/site";
 import { BrandLogo } from "@/components/header";
 import { ButtonLink, SectionHeading } from "@/components/ui";
@@ -22,13 +22,12 @@ function ScrollProgress() {
 }
 
 function Hero() {
-  const reduce = useReducedMotion();
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -36]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 52]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.07]);
-  return <section ref={heroRef} className="relative overflow-hidden bg-primary-deep pt-16 text-white md:pt-24"><motion.div aria-hidden="true" style={{ y: imageY }} className="absolute -right-36 -top-40 h-[500px] w-[500px] rounded-full border-[70px] border-accent/15" /><div className="container-shell relative grid min-h-[640px] items-center gap-10 pb-24 lg:grid-cols-[0.9fr_1.1fr]"><motion.div style={{ y: contentY }}><p className="text-xs font-extrabold tracking-[0.18em] text-accent">SMART LOGISTICS ACROSS SAUDI ARABIA</p><h1 className="mt-5 max-w-2xl text-5xl font-extrabold leading-[1.04] md:text-7xl">Smart <span className="text-accent">Logistics.</span><br />Reliable <span className="text-accent">Solutions.</span><br />Expert Consultation.</h1><p className="mt-6 max-w-xl text-lg leading-8 text-white/72">LogiSmart Solutions delivers intelligent, integrated, and customer-focused logistics services designed to improve efficiency, reduce costs, enhance visibility, and support sustainable business growth across Saudi Arabia.</p><div className="mt-8 flex flex-col gap-3 sm:flex-row"><ButtonLink href="#services">Explore Our Services <ArrowRight size={17} /></ButtonLink><ButtonLink href="/contact" variant="secondary" className="border-white/25 bg-white/5 text-white hover:border-accent hover:text-accent">Request Consultation</ButtonLink></div><p className="mt-10 flex items-center gap-3 text-sm font-bold text-white/76"><span className="h-px w-10 bg-accent" />Delivering Value. Connecting Business. Driving Growth.</p></motion.div><motion.div style={{ y: imageY, scale: imageScale }} className="relative min-h-[390px] overflow-hidden rounded-[22px] border border-white/10 shadow-2xl lg:min-h-[540px]"><Image src="/images/logistics/14_quote_team_variant_2.png" alt="Professional logistics team at a modern cargo facility" fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-primary-deep/70 via-transparent to-transparent" /><p className="absolute bottom-6 left-6 max-w-xs text-lg font-bold leading-7">Connected operations built for a smarter supply chain.</p></motion.div></div></section>;
+  return <section aria-label="Logistics operations video" className="relative h-[min(78svh,780px)] min-h-[440px] overflow-hidden bg-primary-deep">
+    <video autoPlay muted loop playsInline preload="metadata" poster="/images/logistics/14_quote_team_variant_2.png" className="absolute inset-0 h-full w-full object-cover">
+      <source src="/logismart-hero.mp4" type="video/mp4" />
+    </video>
+    <div aria-hidden="true" className="absolute inset-0 bg-primary-deep/20" />
+  </section>;
 }
 
 function StatsStrip() { const items = [["01", "Nationwide Network"], ["02", "Integrated Solutions"], ["03", "Customer-Focused Operations"]]; return <section className="relative z-10 -mt-8"><div className="container-shell grid overflow-hidden rounded-[16px] border border-border bg-white shadow-[var(--shadow-card)] md:grid-cols-3">{items.map(([number, label]) => <div key={number} className="flex items-center gap-4 border-b border-border p-6 last:border-b-0 md:border-b-0 md:border-r last:md:border-r-0"><span className="text-3xl font-extrabold text-brand">{number}</span><p className="text-sm font-extrabold text-primary">{label}</p></div>)}</div></section>; }

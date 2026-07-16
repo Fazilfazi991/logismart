@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
@@ -10,9 +11,7 @@ import { ButtonLink } from "@/components/ui";
 
 export function BrandLogo({ dark = false }: { dark?: boolean }) {
   return <Link href="/" aria-label="LogiSmart Solutions home" className="inline-flex h-12 w-[172px] items-center overflow-hidden">
-    <object aria-label="LogiSmart Solutions" className={`h-full w-full pointer-events-none ${dark ? "brightness-0 invert" : ""}`} data="/logismart-logo.pdf#view=FitH&toolbar=0&navpanes=0" type="application/pdf">
-      <span className="text-lg font-extrabold text-primary">LogiSmart Solutions</span>
-    </object>
+    <Image src="/logismart-logo-transparent.png" alt="LogiSmart Solutions" width={2272} height={600} priority className={`h-auto w-full ${dark ? "brightness-0 invert" : ""}`} />
   </Link>;
 }
 
