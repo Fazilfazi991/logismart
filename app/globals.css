@@ -18,7 +18,8 @@ button, input, select, textarea { font: inherit; }
 .shipment-journey {
   position: relative;
   contain: layout paint;
-  min-height: 640px;
+  min-height: 100svh;
+  padding-block: clamp(56px, 5vw, 80px);
 }
 
 .shipment-journey__intro,
@@ -62,6 +63,7 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 767px) {
   .shipment-journey {
     min-height: 0;
+    padding-block: 64px;
   }
 }
 

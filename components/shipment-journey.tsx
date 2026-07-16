@@ -94,26 +94,28 @@ export function ShipmentJourney() {
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: section,
-              start: "top 72%",
-              end: "bottom 35%",
-              scrub: 0.7,
+              start: isDesktop ? "top 15%" : "top 75%",
+              end: isDesktop ? "+=900" : "+=620",
+              scrub: 0.45,
+              pin: isDesktop,
+              anticipatePin: isDesktop ? 1 : 0,
               invalidateOnRefresh: true,
               onUpdate: (self) => setActive(Math.min(stages.length - 1, Math.floor(self.progress * stages.length)))
             }
           });
 
-          timeline.fromTo(introRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.28, ease: "power2.out", force3D: true }, 0);
-          timeline.to(line, { [isDesktop ? "scaleX" : "scaleY"]: 1, duration: 4.3, ease: "none", force3D: true, willChange: "transform" }, 0.14);
+          timeline.fromTo(introRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", force3D: true }, 0);
+          timeline.to(line, { [isDesktop ? "scaleX" : "scaleY"]: 1, duration: 3.8, ease: "none", force3D: true, willChange: "transform" }, 0.36);
           stageNodes.forEach((stage, index) => {
-            const point = 0.22 + index * 0.92;
+            const point = 0.42 + index * 0.8;
             const visual = stage.querySelector<HTMLElement>("[data-stage-visual]");
             const stageExtras = stage.querySelectorAll<HTMLElement>("[data-stage-extra]");
-            timeline.to(truck, { [axis]: () => (travelDistance() * index) / (stages.length - 1), duration: 0.9, ease: "none", force3D: true }, point);
+            timeline.to(truck, { [axis]: () => (travelDistance() * index) / (stages.length - 1), duration: 0.62, ease: "none", force3D: true }, point);
             timeline.to(stage, { opacity: 1, duration: 0.16, ease: "none" }, point);
-            if (visual) timeline.to(visual, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out", force3D: true }, point);
+            if (visual) timeline.to(visual, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out", force3D: true }, point);
             if (stageExtras.length) timeline.to(stageExtras, { opacity: 1, scale: 1, duration: 0.2, stagger: 0.06, ease: "power2.out", force3D: true }, point + 0.08);
           });
-          timeline.to(benefitNodes, { opacity: 1, y: 0, duration: 0.25, stagger: 0.08, ease: "power2.out", force3D: true }, "+=0.04");
+          timeline.to(benefitNodes, { opacity: 1, y: 0, duration: 0.35, stagger: 0.07, ease: "power2.out", force3D: true }, 3.9);
         };
 
         media.add("(min-width: 768px)", () => createJourney("desktop"));
