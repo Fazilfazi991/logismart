@@ -14,3 +14,66 @@ button, input, select, textarea { font: inherit; }
 .field { width: 100%; border: 1px solid var(--color-border); background: white; color: var(--color-text); border-radius: var(--radius-sm); padding: 13px 14px; outline: none; transition: border-color 160ms ease, box-shadow 160ms ease; }
 .field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgba(22, 134, 95, 0.14); }
 .field::placeholder { color: #8b9993; }
+
+.shipment-journey {
+  position: relative;
+  contain: layout paint;
+  min-height: 640px;
+}
+
+.shipment-journey__intro,
+.shipment-journey__animated-element,
+.shipment-journey__progress-line,
+.shipment-journey__truck,
+.shipment-journey__stage-visual {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.shipment-journey__progress-line,
+.shipment-journey__truck {
+  will-change: transform;
+}
+
+.shipment-journey-desktop .shipment-journey__progress-line {
+  transform: scaleX(0) translateZ(0);
+  transform-origin: left center;
+}
+
+.shipment-journey-mobile .shipment-journey__progress-line {
+  transform: scaleY(0) translateZ(0);
+  transform-origin: center top;
+}
+
+.shipment-journey__stage.is-active {
+  color: var(--color-brand);
+}
+
+.shipment-journey__stage.is-active .shipment-journey__stage-visual {
+  border-color: var(--color-brand);
+  background: var(--color-background-soft);
+}
+
+.shipment-journey__stage.is-active .shipment-journey__badge {
+  background: rgba(99, 212, 167, 0.3);
+  color: var(--color-brand);
+}
+
+@media (max-width: 767px) {
+  .shipment-journey {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shipment-journey__progress-line {
+    transform: scale(1) translateZ(0) !important;
+  }
+
+  .shipment-journey *,
+  .shipment-journey *::before,
+  .shipment-journey *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
