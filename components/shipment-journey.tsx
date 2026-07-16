@@ -4,14 +4,14 @@ import { forwardRef, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
-import { BadgeCheck, Container, Factory, FileCheck2, PackageCheck, Truck, Warehouse } from "lucide-react";
+import Image from "next/image";
 
 const stages = [
-  { number: "01", title: "Supplier", description: "We pick up your goods from the supplier.", icon: Factory, kind: "supplier" },
-  { number: "02", title: "Port", description: "Safe handling and international shipping.", icon: Container, kind: "port" },
-  { number: "03", title: "Customs", description: "All documentation and clearance, handled.", icon: FileCheck2, kind: "customs" },
-  { number: "04", title: "Warehouse", description: "Secure storage and smart inventory management.", icon: Warehouse, kind: "warehouse" },
-  { number: "05", title: "Customer", description: "On-time delivery, every time.", icon: PackageCheck, kind: "customer" }
+  { number: "01", title: "Supplier", description: "We pick up your goods from the supplier.", icon: "/images/logistics/shipment-journey/01-minimalist_green_factory_icon.png", kind: "supplier" },
+  { number: "02", title: "Port", description: "Safe handling and international shipping.", icon: "/images/logistics/shipment-journey/02-minimalist_crane_lifting_shipping_container.png", kind: "port" },
+  { number: "03", title: "Customs", description: "All documentation and clearance, handled.", icon: "/images/logistics/shipment-journey/03-document_approval_icon_in_green.png", kind: "customs" },
+  { number: "04", title: "Warehouse", description: "Secure storage and smart inventory management.", icon: "/images/logistics/shipment-journey/04-warehouse_interior_with_stacked_boxes.png", kind: "warehouse" },
+  { number: "05", title: "Customer", description: "On-time delivery, every time.", icon: "/images/logistics/shipment-journey/05-verified_delivery_icon_with_checkmark.png", kind: "customer" }
 ] as const;
 
 const benefits = [
@@ -94,28 +94,26 @@ export function ShipmentJourney() {
           const timeline = gsap.timeline({
             scrollTrigger: {
               trigger: section,
-              start: isDesktop ? "top 15%" : "top 75%",
-              end: isDesktop ? "+=900" : "+=620",
-              scrub: 0.45,
-              pin: isDesktop,
-              anticipatePin: isDesktop ? 1 : 0,
+              start: "top 75%",
+              end: "bottom 30%",
+              scrub: 0.35,
               invalidateOnRefresh: true,
               onUpdate: (self) => setActive(Math.min(stages.length - 1, Math.floor(self.progress * stages.length)))
             }
           });
 
-          timeline.fromTo(introRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", force3D: true }, 0);
-          timeline.to(line, { [isDesktop ? "scaleX" : "scaleY"]: 1, duration: 3.8, ease: "none", force3D: true, willChange: "transform" }, 0.36);
+          timeline.fromTo(introRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out", force3D: true }, 0);
+          timeline.to(line, { [isDesktop ? "scaleX" : "scaleY"]: 1, duration: 1, ease: "none", force3D: true, willChange: "transform" }, 0);
           stageNodes.forEach((stage, index) => {
-            const point = 0.42 + index * 0.8;
+            const point = index * 0.2;
             const visual = stage.querySelector<HTMLElement>("[data-stage-visual]");
             const stageExtras = stage.querySelectorAll<HTMLElement>("[data-stage-extra]");
-            timeline.to(truck, { [axis]: () => (travelDistance() * index) / (stages.length - 1), duration: 0.62, ease: "none", force3D: true }, point);
-            timeline.to(stage, { opacity: 1, duration: 0.16, ease: "none" }, point);
-            if (visual) timeline.to(visual, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out", force3D: true }, point);
-            if (stageExtras.length) timeline.to(stageExtras, { opacity: 1, scale: 1, duration: 0.2, stagger: 0.06, ease: "power2.out", force3D: true }, point + 0.08);
+            timeline.to(truck, { [axis]: () => (travelDistance() * index) / (stages.length - 1), duration: 0.18, ease: "none", force3D: true }, point);
+            timeline.to(stage, { opacity: 1, duration: 0.12, ease: "none" }, point);
+            if (visual) timeline.to(visual, { opacity: 1, scale: 1, duration: 0.16, ease: "power2.out", force3D: true }, point);
+            if (stageExtras.length) timeline.to(stageExtras, { opacity: 1, scale: 1, duration: 0.14, stagger: 0.04, ease: "power2.out", force3D: true }, point + 0.04);
           });
-          timeline.to(benefitNodes, { opacity: 1, y: 0, duration: 0.35, stagger: 0.07, ease: "power2.out", force3D: true }, 3.9);
+          timeline.to(benefitNodes, { opacity: 1, y: 0, duration: 0.2, stagger: 0.05, ease: "power2.out", force3D: true }, 0.82);
         };
 
         media.add("(min-width: 768px)", () => createJourney("desktop"));
@@ -142,16 +140,16 @@ export function ShipmentJourney() {
       <div className="shipment-journey-desktop relative mt-16 hidden min-h-[254px] md:block">
         <div className="absolute left-[9.5%] right-[9.5%] top-[62px] h-px bg-border" />
         <div ref={desktopLineRef} className="shipment-journey__progress-line absolute left-[9.5%] right-[9.5%] top-[62px] h-[2px] bg-brand" />
-        <div ref={desktopTruckRef} className="shipment-journey__truck absolute left-[9.5%] top-[45px] z-20"><div className="-translate-x-1/2 rounded-full border border-brand/20 bg-white p-2 text-brand shadow-sm"><Truck className="h-[18px] w-[18px]" aria-hidden="true" /></div></div>
+        <div ref={desktopTruckRef} className="shipment-journey__truck absolute left-[9.5%] top-[42px] z-20"><div className="-translate-x-1/2 rounded-full border border-brand/20 bg-white p-1 shadow-sm"><Image src="/images/logistics/shipment-journey/06-delivery_truck_icon_in_green_outline.png" alt="" width={30} height={30} className="h-7 w-7 object-contain" /></div></div>
         <div className="grid grid-cols-5 gap-3">
           {stages.map((stage, index) => <JourneyStage key={stage.title} index={index} stage={stage} ref={(element) => { desktopStageRefs.current[index] = element; }} />)}
         </div>
       </div>
 
-      <div className="shipment-journey-mobile relative mt-12 grid min-h-[630px] gap-8 pl-16 md:hidden">
+      <div className="shipment-journey-mobile relative mt-12 grid gap-8 pl-16 md:hidden">
         <div className="absolute bottom-9 left-7 top-7 w-px bg-border" />
         <div ref={mobileLineRef} className="shipment-journey__progress-line absolute bottom-9 left-7 top-7 w-[2px] bg-brand" />
-        <div ref={mobileTruckRef} className="shipment-journey__truck absolute left-7 top-7 z-20"><div className="-translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/20 bg-white p-2 text-brand shadow-sm"><Truck className="h-4 w-4" aria-hidden="true" /></div></div>
+        <div ref={mobileTruckRef} className="shipment-journey__truck absolute left-7 top-7 z-20"><div className="-translate-x-1/2 -translate-y-1/2 rounded-full border border-brand/20 bg-white p-1 shadow-sm"><Image src="/images/logistics/shipment-journey/06-delivery_truck_icon_in_green_outline.png" alt="" width={28} height={28} className="h-6 w-6 object-contain" /></div></div>
         {stages.map((stage, index) => <JourneyStage key={stage.title} index={index} stage={stage} ref={(element) => { mobileStageRefs.current[index] = element; }} />)}
       </div>
 
@@ -165,10 +163,9 @@ export function ShipmentJourney() {
 type Stage = (typeof stages)[number];
 
 const JourneyStage = forwardRef<HTMLDivElement, { index: number; stage: Stage }>(function JourneyStage({ index, stage }, ref) {
-  const Icon = stage.icon;
   return <div ref={ref} data-stage-index={index} className="shipment-journey__stage relative z-10 text-center text-text-muted md:px-3">
     <div data-stage-visual className="shipment-journey__stage-visual relative mx-auto grid h-16 w-16 place-items-center rounded-full border border-border bg-white">
-      <Icon className="h-[26px] w-[26px]" strokeWidth={1.6} aria-hidden="true" />
+      <Image src={stage.icon} alt="" width={48} height={48} className="h-12 w-12 object-contain" />
       <StageMicroVisual kind={stage.kind} />
     </div>
     <span className="shipment-journey__badge mt-5 inline-flex min-h-6 min-w-10 items-center justify-center rounded-full bg-white px-3 py-1 text-xs font-extrabold">{stage.number}</span>
@@ -181,6 +178,6 @@ function StageMicroVisual({ kind }: { kind: Stage["kind"] }) {
   if (kind === "port") return <span aria-hidden="true" className="pointer-events-none absolute"><span data-stage-extra className="absolute -left-3 -top-10 h-7 w-px bg-brand" /><span data-stage-extra className="absolute -left-[13px] -top-4 h-2 w-2 rounded-full border border-brand bg-white" /></span>;
   if (kind === "customs") return <span data-stage-extra className="pointer-events-none absolute -right-9 top-1 rounded bg-brand px-1.5 py-0.5 text-[9px] font-extrabold text-white">Cleared</span>;
   if (kind === "warehouse") return <span className="pointer-events-none absolute -bottom-2 -right-4 flex gap-0.5">{[0, 1, 2].map((box) => <span key={box} data-stage-extra className="h-2.5 w-2.5 border border-brand bg-soft" />)}</span>;
-  if (kind === "customer") return <BadgeCheck data-stage-extra className="pointer-events-none absolute -bottom-2 -right-3 h-[19px] w-[19px] text-brand" aria-hidden="true" />;
+  if (kind === "customer") return <span data-stage-extra className="pointer-events-none absolute -bottom-2 -right-3 grid h-[19px] w-[19px] place-items-center rounded-full bg-soft text-xs font-extrabold text-brand">&#10003;</span>;
   return null;
 }
