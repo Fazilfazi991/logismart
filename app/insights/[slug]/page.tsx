@@ -1,26 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock3 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/home";
 import { Header } from "@/components/header";
-import { insights } from "@/data/site";
+import { ButtonLink } from "@/components/ui";
+import { articles } from "@/data/articles";
 
 type PageProps = { params: Promise<{ slug: string }> };
-
-export function generateStaticParams() { return insights.map((article) => ({ slug: article.slug })); }
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const article = insights.find((item) => item.slug === slug);
-  if (!article) return {};
-  return { title: article.title, description: article.description, alternates: { canonical: `/insights/${article.slug}` }, openGraph: { title: article.title, description: article.description, images: [article.image] } };
-}
-
-export default async function InsightArticlePage({ params }: PageProps) {
-  const { slug } = await params;
-  const article = insights.find((item) => item.slug === slug);
-  if (!article) notFound();
-  return <><Header /><main><article className="section-pad bg-white"><div className="container-shell max-w-4xl"><Link href="/insights" className="inline-flex items-center gap-2 text-sm font-extrabold text-brand transition hover:text-primary"><ArrowLeft size={16} />Back to Insights</Link><p className="mt-10 text-xs font-extrabold tracking-[0.18em] text-brand">{article.category}</p><h1 className="mt-4 text-4xl font-extrabold text-primary md:text-6xl">{article.title}</h1><p className="mt-5 max-w-3xl text-lg leading-8 text-text-muted">{article.description}</p><div className="relative mt-10 aspect-[1.7/1] overflow-hidden rounded-[16px] bg-soft"><Image src={article.image} alt="" fill sizes="(min-width:1024px) 860px, 100vw" className="object-cover" priority /></div><div className="mt-10 grid max-w-3xl gap-5 text-base leading-8 text-text-muted">{article.content.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></div></article></main><Footer /></>;
-}
+export function generateStaticParams() { return articles.map(article => ({ slug: article.slug })); }
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> { const { slug } = await params; const article = articles.find(item => item.slug === slug); if (!article) return {}; return { title: article.title, description: article.description, alternates: { canonical: `/insights/${article.slug}` }, openGraph: { type: "article", title: article.title, description: article.description, images: [{ url: article.image }] } }; }
+export default async function InsightArticlePage({ params }: PageProps) { const { slug } = await params; const article = articles.find(item => item.slug === slug); if (!article) notFound(); const related = articles.filter(item => item.slug !== article.slug); return <><Header /><main><article className="bg-white pb-16"><div className="container-shell max-w-5xl pt-10 md:pt-16"><Link href="/insights" className="inline-flex items-center gap-2 text-sm font-extrabold text-brand hover:text-primary"><ArrowLeft size={16} />Back to Insights</Link><p className="mt-10 text-xs font-extrabold tracking-[.18em] text-brand">{article.category}</p><h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.08] text-primary md:text-6xl">{article.title}</h1><p className="mt-5 max-w-3xl text-lg leading-8 text-text-muted">{article.description}</p><p className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-text-muted"><Clock3 size={16} className="text-brand" />{article.readTime}</p><div className="relative mt-8 aspect-[1.8/1] overflow-hidden rounded-[20px] bg-soft"><Image src={article.image} alt={article.title} fill priority sizes="(min-width:1024px) 1000px, 100vw" className="object-cover" /></div></div><div className="container-shell mt-12 max-w-3xl">{article.sections.map((section, i) => <section key={section.heading} className="mb-12"><h2 className="text-2xl font-extrabold text-primary md:text-3xl">{section.heading}</h2>{section.paragraphs.map(paragraph => <p key={paragraph} className="mt-5 text-base leading-8 text-text-muted" dangerouslySetInnerHTML={{ __html: paragraph }} />)}{section.image ? <div className="relative mt-8 aspect-[1.7/1] overflow-hidden rounded-[16px]"><Image src={section.image} alt="Logistics operations" fill sizes="(min-width:768px) 720px, 100vw" className="object-cover" /></div> : null}</section>)}</div></article><section className="section-pad bg-soft"><div className="container-shell"><h2 className="text-3xl font-extrabold text-primary">Related insights</h2><div className="mt-7 grid gap-4 md:grid-cols-2">{related.map(item => <Link key={item.slug} href={`/insights/${item.slug}`} className="rounded-[16px] border border-border bg-white p-6 transition hover:border-brand"><p className="text-xs font-extrabold tracking-[.12em] text-brand">{item.category}</p><h3 className="mt-3 text-xl font-extrabold text-primary">{item.title}</h3><span className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-brand">Read insight <ArrowRight size={16} /></span></Link>)}</div><div className="mt-12 rounded-[20px] bg-primary p-8 text-white md:p-10"><p className="text-xs font-extrabold tracking-[.18em] text-accent">Talk to a specialist</p><h2 className="mt-3 text-3xl font-extrabold">Planning a more controlled logistics operation?</h2><p className="mt-3 max-w-2xl leading-7 text-white/70">Tell us about your requirements and our team can help identify a suitable logistics approach.</p><ButtonLink href="/contact" className="mt-6 !bg-accent !text-primary hover:!bg-white">Request Consultation <ArrowRight size={16} /></ButtonLink></div></div></section></main><Footer /></>; }
