@@ -11,7 +11,7 @@ import { ButtonLink } from "@/components/ui";
 
 export function BrandLogo({ dark = false }: { dark?: boolean }) {
   return <Link href="/" aria-label="LogiSmart Solutions home" className="inline-flex h-12 w-[172px] items-center overflow-hidden">
-    <Image src="/logismart-logo-transparent.png" alt="LogiSmart Solutions" width={2272} height={600} priority className={`h-auto w-full ${dark ? "brightness-0 invert" : ""}`} />
+    <Image src="/logismart-logo-transparent-hq.png" alt="LogiSmart Solutions" width={2272} height={600} priority className={`h-auto w-full ${dark ? "brightness-0 invert" : ""}`} />
   </Link>;
 }
 

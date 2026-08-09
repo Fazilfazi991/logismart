@@ -6,7 +6,7 @@ type ButtonProps = ComponentProps<typeof Link> & { variant?: "primary" | "second
 
 export function ButtonLink({ className = "", variant = "primary", children, ...props }: ButtonProps) {
   const styles = variant === "primary"
-    ? "bg-brand text-white hover:bg-primary shadow-[0_10px_24px_rgba(22,134,95,0.22)]"
+    ? "bg-brand text-white hover:bg-brand-hover shadow-[0_10px_24px_rgba(113,147,123,0.25)]"
     : "border border-border bg-white text-primary hover:border-brand hover:text-brand";
   return <Link className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${styles} ${className}`} {...props}>{children}</Link>;
 }

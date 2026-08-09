@@ -4,7 +4,7 @@ const config: Config = {
   content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
-      colors: { primary: "#0D332B", "primary-deep": "#09251F", brand: "#16865F", accent: "#63D4A7", soft: "#EDF8F3", surface: "#F8FAF9", ink: "#15221E", "text-muted": "#66756F", border: "#D8E5DF" },
+      colors: { primary: "#1B302B", "primary-deep": "#344A43", brand: "#71937B", "brand-hover": "#627F6C", accent: "#96AA9E", soft: "#EEF3EF", surface: "#F7F9F7", ink: "#1B302B", "text-muted": "#5A6B65", border: "#DCE5DF" },
       fontFamily: { sans: ["var(--font-body)", "Arial", "sans-serif"] }
     }
   },

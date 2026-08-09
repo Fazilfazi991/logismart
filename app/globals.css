@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; scroll-behavior: smooth; --color-primary: #0D332B; --color-primary-deep: #09251F; --color-brand: #16865F; --color-accent: #63D4A7; --color-background: #F8FAF9; --color-background-soft: #EDF8F3; --color-text: #15221E; --color-text-muted: #66756F; --color-border: #D8E5DF; --color-white: #FFFFFF; --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px; --shadow-card: 0 18px 50px rgba(13, 51, 43, 0.10); }
+:root { color-scheme: light; scroll-behavior: smooth; --brand-dark: #1B302B; --brand-primary: #71937B; --brand-primary-hover: #627F6C; --brand-deep: #344A43; --brand-soft: #96AA9E; --surface-light: #F7F9F7; --surface-soft: #EEF3EF; --text-primary: #1B302B; --text-secondary: #5A6B65; --text-muted: #7B9084; --border-soft: #DCE5DF; --color-primary: var(--brand-dark); --color-primary-deep: var(--brand-deep); --color-brand: var(--brand-primary); --color-accent: var(--brand-soft); --color-background: var(--surface-light); --color-background-soft: var(--surface-soft); --color-text: var(--text-primary); --color-text-muted: var(--text-secondary); --color-border: var(--border-soft); --color-white: #FFFFFF; --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px; --shadow-card: 0 18px 50px rgba(27, 48, 43, 0.10); }
 * { box-sizing: border-box; }
 html, body { min-height: 100%; overflow-x: hidden; background: var(--color-background); }
 body { color: var(--color-text); }
@@ -12,8 +12,8 @@ button, input, select, textarea { font: inherit; }
 .container-shell { width: min(1220px, calc(100% - 32px)); margin-inline: auto; }
 .section-pad { padding-block: clamp(64px, 8vw, 112px); }
 .field { width: 100%; border: 1px solid var(--color-border); background: white; color: var(--color-text); border-radius: var(--radius-sm); padding: 13px 14px; outline: none; transition: border-color 160ms ease, box-shadow 160ms ease; }
-.field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgba(22, 134, 95, 0.14); }
-.field::placeholder { color: #8b9993; }
+.field:focus { border-color: var(--color-brand); box-shadow: 0 0 0 3px rgba(113, 147, 123, 0.24); }
+.field::placeholder { color: var(--text-muted); }
 
 .shipment-journey {
   position: relative;
@@ -54,7 +54,7 @@ button, input, select, textarea { font: inherit; }
 }
 
 .shipment-journey__stage.is-active .shipment-journey__badge {
-  background: rgba(99, 212, 167, 0.3);
+  background: rgba(150, 170, 158, 0.3);
   color: var(--color-brand);
 }
 
