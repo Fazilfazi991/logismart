@@ -76,7 +76,7 @@ export const consultationPoints = [
 ];
 
 const visualPool = [
-  "/images/smart-logistics/freight-forwarding-port.png", "/images/smart-logistics/land-transportation-saudi.png", "/images/smart-logistics/customs-clearance.png", "/images/smart-logistics/warehousing-3pl.png", "/images/smart-logistics/packing-moving.png", "/images/smart-logistics/equipment-rental.png", "/images/smart-logistics/equipment-maintenance.png", "/images/logistics/05_stacked_containers_variant_1.png"
+  "/images/smart-logistics/freight-forwarding-port.png", "/images/smart-logistics/land-transportation-saudi.png", "/images/smart-logistics/customs-clearance.png", "/images/smart-logistics/warehousing-3pl.png", "/images/smart-logistics/packing-moving.png", "/images/smart-logistics/equipment-rental.png", "/images/smart-logistics/equipment-maintenance.png", "/images/smart-logistics/warehouse-racking.png"
 ];
 
 export const serviceDetails = services.map((service, index) => ({ ...service, image: visualPool[index], copy: [
