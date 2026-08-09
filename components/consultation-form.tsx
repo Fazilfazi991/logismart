@@ -1,0 +1,11 @@
+"use client";
+
+import { useForm, ValidationError } from "@formspree/react";
+import { services } from "@/data/site";
+
+export function ConsultationForm() {
+  const [state, handleSubmit] = useForm("meajebqp");
+  if (state.succeeded) return <div className="grid place-items-center p-10 text-center"><p className="text-lg font-extrabold text-primary">Thank you. Your consultation request has been received.</p></div>;
+  return <form onSubmit={handleSubmit} className="grid gap-5 p-6 md:p-10"><div className="grid gap-4 md:grid-cols-2"><Field name="name" label="Full Name" required /><Field name="company" label="Company Name" required /><Field name="email" label="Email Address" type="email" required /><Field name="phone" label="Phone Number" type="tel" required /><label className="grid gap-2 text-sm font-bold text-primary"><span>Service Required</span><select name="service" className="field" required defaultValue=""><option value="" disabled>Select a service</option>{services.map((item) => <option key={item.slug}>{item.title}</option>)}<option>Reliable Solutions</option><option>Expert Consultation</option></select></label><Field name="origin" label="Origin" /><Field name="destination" label="Destination" /></div><label className="grid gap-2 text-sm font-bold text-primary"><span>Message</span><textarea name="message" className="field min-h-28" required placeholder="Tell us about your requirements." /></label><ValidationError prefix="Message" field="message" errors={state.errors} className="text-sm font-bold text-red-700" /><button disabled={state.submitting} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-brand px-5 text-sm font-extrabold text-white hover:bg-brand-hover disabled:opacity-70">{state.submitting ? "Sending..." : "Request Consultation"}</button>{state.errors ? <p role="alert" className="text-sm font-bold text-red-700">We could not send your request. Please try again.</p> : null}</form>;
+}
+function Field({ name, label, type = "text", required = false }: { name: string; label: string; type?: string; required?: boolean }) { return <label className="grid gap-2 text-sm font-bold text-primary"><span>{label}</span><input name={name} className="field" required={required} type={type} /></label>; }
