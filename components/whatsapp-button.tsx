@@ -1,0 +1,5 @@
+export function WhatsAppButton() {
+  return <a href="https://wa.me/966502964915" target="_blank" rel="noreferrer" aria-label="Chat with LogiSmart on WhatsApp" className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_12px_28px_rgba(13,51,43,0.28)] transition hover:-translate-y-1 hover:bg-[#1fbd5a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand sm:bottom-7 sm:right-7" title="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true" className="h-7 w-7 fill-current"><path d="M16 3a12.6 12.6 0 0 0-10.8 19l-1.6 6 6.2-1.6A12.6 12.6 0 1 0 16 3Zm0 22.8c-2 0-3.9-.6-5.5-1.7l-.4-.2-3.6.9 1-3.5-.3-.4A10.2 10.2 0 1 1 16 25.8Zm5.6-7.6c-.3-.1-1.9-.9-2.2-1-.3-.1-.5-.1-.7.2s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-1.8-.9-3-2-4.1-3.7-.2-.3 0-.4.1-.6l.5-.6c.2-.2.2-.4.3-.6 0-.2-.1-.4-.2-.5l-1-2.3c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.1.2 2.1 3.3 5.1 4.6.7.3 1.3.5 1.8.6.8.2 1.5.2 2 .1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.3Z" /></svg>
+  </a>;
+}

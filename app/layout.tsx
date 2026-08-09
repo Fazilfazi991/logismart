@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import "./globals.css";
 
 const body = Manrope({ subsets: ["latin"], variable: "--font-body", display: "swap" });
@@ -12,4 +13,4 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" }
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body className={`${body.variable} font-sans antialiased`}>{children}</body></html>; }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body className={`${body.variable} font-sans antialiased`}>{children}<WhatsAppButton /></body></html>; }
